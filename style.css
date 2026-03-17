@@ -1,0 +1,206 @@
+/* Modern Custom Styles */
+
+/* Glassmorphism Navbar */
+.glass-nav {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.dark .glass-nav {
+    background: rgba(15, 23, 42, 0.7);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Fix Bootstrap overriding Custom Text Colors */
+.navbar-brand, .nav-link {
+    color: #1e293b !important;
+    transition: color 0.3s ease;
+}
+
+.dark .navbar-brand, .dark .nav-link {
+    color: rgba(226, 232, 240, 1) !important;
+}
+
+.nav-link:hover, .dark .nav-link:hover {
+    color: #3b82f6 !important;
+}
+
+.btn-contact {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: #3b82f6 !important;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.btn-contact:hover {
+    background-color: #3b82f6;
+    color: white !important;
+}
+
+/* Gradient Text Selection */
+::selection {
+    background: #3b82f6;
+    color: #fff;
+}
+
+::-moz-selection {
+    background: #3b82f6;
+    color: #fff;
+}
+
+/* Glass Card */
+.glass-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.dark .glass-card {
+    background: rgba(30, 41, 59, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Gradient Text Utility */
+.gradient-text {
+    background: linear-gradient(to right, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+}
+
+/* Input Styles */
+.custom-input::placeholder {
+    color: #64748b;
+}
+
+.custom-input:focus {
+    outline: none;
+    box-shadow: none !important;
+}
+
+/* Progress Bar Customization */
+.custom-progress-bar {
+    background: linear-gradient(to right, #3b82f6, #60a5fa);
+    position: relative;
+    overflow: hidden;
+    width: 0; /* Changed for load animation */
+    transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.custom-progress-bar::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-image: linear-gradient(
+        -45deg,
+        rgba(255, 255, 255, 0.2) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0.2) 75%,
+        transparent 75%,
+        transparent
+    );
+    z-index: 1;
+    background-size: 50px 50px;
+    animation: move 2s linear infinite;
+    overflow: hidden;
+}
+
+.custom-progress-bar-secondary {
+    background: linear-gradient(to right, #8b5cf6, #c084fc);
+}
+
+@keyframes move {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 50px 50px;
+    }
+}
+
+/* Custom Animations */
+@keyframes spin-slow {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin-reverse-slow {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+}
+
+.animate-spin-slow {
+    animation: spin-slow 15s linear infinite;
+}
+
+.animate-spin-reverse-slow {
+    animation: spin-reverse-slow 20s linear infinite;
+}
+
+/* Interception Observer Animations */
+.section-hidden {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+.section-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.animation-initial {
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards;
+}
+
+#hero-text {
+    animation-delay: 0.2s;
+}
+
+#hero-image {
+    animation-delay: 0.5s;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Additional Custom Utilities */
+.project-card:hover {
+    transform: translateY(-8px);
+}
+.project-card {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
