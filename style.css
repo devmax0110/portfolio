@@ -14,6 +14,32 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+/* Fix Tailwind/Bootstrap conflict: use high-specificity selectors so
+   Tailwind's dynamically-injected styles cannot override us.
+   Tailwind v3 `.collapse` = `visibility: collapse` which hides Bootstrap's navbar. */
+@media (min-width: 992px) {
+    .navbar-expand-lg .navbar-collapse,
+    #navbarNav {
+        display: flex !important;
+        flex-basis: auto !important;
+        flex-grow: 1 !important;
+        align-items: center !important;
+        visibility: visible !important;
+    }
+}
+
+/* On mobile, keep collapse hidden by default (Bootstrap will toggle .show) */
+@media (max-width: 991.98px) {
+    #navbarNav:not(.show) {
+        display: none !important;
+        visibility: visible !important; /* visibility is separate from display */
+    }
+    #navbarNav.show {
+        display: block !important;
+        visibility: visible !important;
+    }
+}
+
 /* Fix Bootstrap overriding Custom Text Colors */
 .navbar-brand, .nav-link {
     color: #1e293b !important;

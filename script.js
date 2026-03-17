@@ -6,6 +6,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // Current Year for Footer
     document.getElementById('year').textContent = new Date().getFullYear();
 
+    // ── Safety net: ensure desktop navbar is always visible ──────────────
+    // Root cause: Tailwind v3 generates `.collapse { visibility: collapse }`
+    // which conflicts with Bootstrap's `.collapse` class. We fix via:
+    // 1. preflight:false in tailwind.config (index.html)
+    // 2. High-specificity CSS in style.css
+    // 3. This JS inline-style backstop (inline > any stylesheet)
+    const navbarCollapseEl = document.getElementById('navbarNav');
+    if (navbarCollapseEl) {
+        const applyDesktopNav = () => {
+            if (window.innerWidth >= 992) {
+                navbarCollapseEl.style.display = 'flex';
+                navbarCollapseEl.style.flexBasis = 'auto';
+                navbarCollapseEl.style.flexGrow = '1';
+                navbarCollapseEl.style.visibility = 'visible';
+            } else {
+                // Let Bootstrap handle it on mobile (remove inline override)
+                navbarCollapseEl.style.display = '';
+                navbarCollapseEl.style.visibility = 'visible';
+            }
+        };
+        applyDesktopNav();                            // run on load
+        window.addEventListener('resize', applyDesktopNav); // run on resize
+    }
+
     // Intersection Observer for scroll animations
     const observerOptions = {
         root: null,
@@ -30,22 +54,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // Close mobile navbar on link click
     const navLinks = document.querySelectorAll('.nav-item .nav-link');
     const navbarCollapse = document.querySelector('.navbar-collapse');
-    
-    // Check if bootstrap is defined (it should be via CDN)
-    let bsCollapse;
-    try {
-        bsCollapse = new bootstrap.Collapse(navbarCollapse, { toggle: false });
-        
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if(navbarCollapse.classList.contains('show')){
+
+    // Only use Bootstrap Collapse JS on mobile (< 992px) to avoid
+    // collapsing the navbar on desktop screens.
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth < 992 && navbarCollapse.classList.contains('show')) {
+                try {
+                    const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse)
+                        || new bootstrap.Collapse(navbarCollapse, { toggle: false });
                     bsCollapse.hide();
+                } catch(e) {
+                    console.warn('Bootstrap collapse hide failed:', e);
                 }
-            });
+            }
         });
-    } catch(e) {
-        console.warn("Bootstrap collapse not active for mobile menu auto-close.");
-    }
+    });
 
     // Form Submission Handler (Prevent default to act as placeholder)
     const contactForm = document.getElementById('contactForm');

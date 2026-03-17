@@ -21,6 +21,12 @@
 
         tailwind.config = {
             darkMode: 'class',
+            corePlugins: {
+                // Disable preflight so Tailwind doesn't generate
+                // `.collapse { visibility: collapse }` which conflicts
+                // with Bootstrap's `.collapse` (display:none) class.
+                preflight: false,
+            },
             theme: {
                 extend: {
                     fontFamily: {
