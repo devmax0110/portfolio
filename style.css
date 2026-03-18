@@ -187,11 +187,11 @@ html {
     animation: spin-reverse-slow 20s linear infinite;
 }
 
-/* Interception Observer Animations */
+/* Intersection Observer Animations */
 .section-hidden {
     opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease-out;
+    transform: translateY(50px);
+    transition: opacity 0.75s ease, transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .section-visible {
