@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse)
                         || new bootstrap.Collapse(navbarCollapse, { toggle: false });
                     bsCollapse.hide();
-                } catch(e) {
+                } catch (e) {
                     console.warn('Bootstrap collapse hide failed:', e);
                 }
             }
@@ -73,24 +73,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Form Submission Handler (Prevent default to act as placeholder)
     const contactForm = document.getElementById('contactForm');
-    if(contactForm) {
+    if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
+
             // Basic animation/feedback
             const btn = contactForm.querySelector('button[type="submit"]');
             const originalText = btn.innerHTML;
-            
+
             btn.innerHTML = '<i class="fas fa-spinner fa-spin text-sm me-2"></i> Sending...';
             btn.disabled = true;
-            
+
             // Simulate network request
             setTimeout(() => {
                 btn.innerHTML = '<i class="fas fa-check text-sm me-2"></i> Sent Successfully!';
                 btn.classList.add('btn-success');
                 btn.classList.remove('btn-primary');
                 contactForm.reset();
-                
+
                 setTimeout(() => {
                     btn.innerHTML = originalText;
                     btn.classList.remove('btn-success');
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
-            
+
             if (scrollY >= (sectionTop - 200)) {
                 current = section.getAttribute('id');
             }
